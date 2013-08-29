@@ -20,7 +20,7 @@
 }
 
 \examples{
-  select(MeSHMAPCOUNTS, keys=c("MeSHTERM"), cols=c("MAPNAME", "COUNT"))
+  select(MeSHMAPCOUNTS, keys=c("MeSHTERM"), columns=c("MAPNAME", "COUNT"))
 }
 
 \keyword{datasets}

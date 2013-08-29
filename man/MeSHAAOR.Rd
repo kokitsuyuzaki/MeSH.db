@@ -18,8 +18,8 @@
 \url{http://www.nlm.nih.gov/mesh/filelist.html} 
 }
 \examples{
-  # "cols" method tells you about what kinds of values you can retrive as columns
-  cols(MeSHAAOR)
+  # "columns" method tells you about what kinds of values you can retrive as columns
+  columns(MeSHAAOR)
   # "keytypes" method tells you the kinds of things that can be used as keys
   keytypes(MeSHAAOR)
   # "keys" method is used to retrive all the viable keys of a particular type
@@ -28,9 +28,9 @@
   k2 <- head(keys(MeSHAAOR, keytype="OFFSPRINGMESHID"))
   k2
   # "select" method extracts data by using values supplied by the other method
-  result1 <- select(MeSHAAOR, keys=k1, cols=c("ANCESTORMESHID", "OFFSPRINGMESHID"), keytype="ANCESTORMESHID")
+  result1 <- select(MeSHAAOR, keys=k1, columns=c("ANCESTORMESHID", "OFFSPRINGMESHID"), keytype="ANCESTORMESHID")
   head(result1)
-  result2 <- select(MeSHAAOR, keys=k2, cols=c("ANCESTORMESHID", "OFFSPRINGMESHID"), keytype="OFFSPRINGMESHID")
+  result2 <- select(MeSHAAOR, keys=k2, columns=c("ANCESTORMESHID", "OFFSPRINGMESHID"), keytype="OFFSPRINGMESHID")
   head(result2)
 
 }

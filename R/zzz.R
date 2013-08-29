@@ -44,13 +44,13 @@ MeSH_dbInfo <- function() get("dbInfo", envir=datacache)()
 	setClass("MeSHPCR", representation(name="character", objectname="character"), prototype(name="MeSHPCR", objectname="NONAME"))
 	
 	# Definition of Methods
-	# cols
-	setMethod("cols", "MeSHTERM", function(x){return(c("MESHID", "MESHTERM", "MESHCATEGORY"))})
-	setMethod("cols", "MeSHSYNONYM", function(x){return(c("MESHID", "MESHSYNONYM"))})
-	setMethod("cols", "MeSHQUALIFIER", function(x){return(c("QUALIFIERID", "SUBHEADING", "MESHID"))})
-	setMethod("cols", "MeSHMAPCOUNTS", function(x){return(c("MAPNAME", "COUNT"))})
-	setMethod("cols", "MeSHAOR", function(x){return(c("ANCESTORMESHID", "OFFSPRINGMESHID"))})
-	setMethod("cols", "MeSHPCR", function(x){return(c("PARENTMESHID", "CHILDMESHID"))})
+	# columns
+	setMethod("columns", "MeSHTERM", function(x){return(c("MESHID", "MESHTERM", "MESHCATEGORY"))})
+	setMethod("columns", "MeSHSYNONYM", function(x){return(c("MESHID", "MESHSYNONYM"))})
+	setMethod("columns", "MeSHQUALIFIER", function(x){return(c("QUALIFIERID", "SUBHEADING", "MESHID"))})
+	setMethod("columns", "MeSHMAPCOUNTS", function(x){return(c("MAPNAME", "COUNT"))})
+	setMethod("columns", "MeSHAOR", function(x){return(c("ANCESTORMESHID", "OFFSPRINGMESHID"))})
+	setMethod("columns", "MeSHPCR", function(x){return(c("PARENTMESHID", "CHILDMESHID"))})
 
 	# keytypes
 	setMethod("keytypes", "MeSHTERM", function(x){return(c("MESHID", "MESHTERM", "MESHCATEGORY"))})
@@ -106,16 +106,16 @@ MeSH_dbInfo <- function() get("dbInfo", envir=datacache)()
 
 	# select
 	setMethod("select", "MeSHTERM",
-		function(x, keys, cols, keytype){
+		function(x, keys, columns, keytype){
 		keys <- unlist(keys)
 		kee <- c()
-			if(length(cols) > 1){
-				c <- cols[1]
-					for(i in 2:(length(cols))){
-						c<- paste(c, cols[i], sep=",")
+			if(length(columns) > 1){
+				c <- columns[1]
+					for(i in 2:(length(columns))){
+						c<- paste(c, columns[i], sep=",")
 					}
 			}else{
-			c <- cols
+			c <- columns
 			}
 		keys <- paste0('"',keys,'"')
 		ke <- paste(keytype, keys, sep="=")
@@ -144,17 +144,17 @@ MeSH_dbInfo <- function() get("dbInfo", envir=datacache)()
 
 	
 		setMethod("select", "MeSHSYNONYM",
-		function(x, keys, cols, keytype){
+		function(x, keys, columns, keytype){
 		keys <- unlist(keys)
 		keytype <- "MESHID"
 		kee <- c()
-			if(length(cols) > 1){
-				c <- cols[1]
-					for(i in 2:(length(cols))){
-						c<- paste(c, cols[i], sep=",")
+			if(length(columns) > 1){
+				c <- columns[1]
+					for(i in 2:(length(columns))){
+						c<- paste(c, columns[i], sep=",")
 					}
 			}else{
-			c <- cols
+			c <- columns
 			}
 		keys <- paste0('"',keys,'"')
 		ke <- paste(keytype, keys, sep="=")
@@ -181,16 +181,16 @@ MeSH_dbInfo <- function() get("dbInfo", envir=datacache)()
 	)
 	
 		setMethod("select", "MeSHQUALIFIER",
-		function(x, keys, cols, keytype){
+		function(x, keys, columns, keytype){
 		keys <- unlist(keys)
 		kee <- c()
-			if(length(cols) > 1){
-				c <- cols[1]
-					for(i in 2:(length(cols))){
-						c<- paste(c, cols[i], sep=",")
+			if(length(columns) > 1){
+				c <- columns[1]
+					for(i in 2:(length(columns))){
+						c<- paste(c, columns[i], sep=",")
 					}
 			}else{
-			c <- cols
+			c <- columns
 			}
 		keys <- paste0('"',keys,'"')
 		ke <- paste(keytype, keys, sep="=")
@@ -217,16 +217,16 @@ MeSH_dbInfo <- function() get("dbInfo", envir=datacache)()
 	)	
 	
 		setMethod("select","MeSHMAPCOUNTS",
-		function(x, keys, cols, keytype){
+		function(x, keys, columns, keytype){
 		keytype <- "MAPNAME"
 		keys <- unlist(keys)
-			if(length(cols) > 1){
-				c <- cols[1]
-					for(i in 2:(length(cols))){
-						c<- paste(c,cols[i], sep=",")
+			if(length(columns) > 1){
+				c <- columns[1]
+					for(i in 2:(length(columns))){
+						c<- paste(c,columns[i], sep=",")
 					}
 			}else{
-			c <- cols
+			c <- columns
 			}
 		keys <- paste0('"',keys,'"')
 		ke <- paste(keytype, keys, sep="=")
@@ -245,16 +245,16 @@ MeSH_dbInfo <- function() get("dbInfo", envir=datacache)()
 	)	
 
 		setMethod("select", "MeSHAOR",
-		function(x, keys, cols, keytype){
+		function(x, keys, columns, keytype){
 		keys <- unlist(keys)
 		kee <- c()
-			if(length(cols) > 1){
-				c <- cols[1]
-					for(i in 2:(length(cols))){
-						c<- paste(c, cols[i], sep=",")
+			if(length(columns) > 1){
+				c <- columns[1]
+					for(i in 2:(length(columns))){
+						c<- paste(c, columns[i], sep=",")
 					}
 			}else{
-			c <- cols
+			c <- columns
 			}
 		keys <- paste0('"',keys,'"')
 		ke <- paste(keytype, keys, sep="=")
@@ -282,16 +282,16 @@ MeSH_dbInfo <- function() get("dbInfo", envir=datacache)()
 
 
 		setMethod("select","MeSHPCR",
-		function(x, keys, cols, keytype){
+		function(x, keys, columns, keytype){
 		keys <- unlist(keys)
 		kee <- c()
-			if(length(cols) > 1){
-				c <- cols[1]
-					for(i in 2:(length(cols))){
-						c<- paste(c, cols[i], sep=",")
+			if(length(columns) > 1){
+				c <- columns[1]
+					for(i in 2:(length(columns))){
+						c<- paste(c, columns[i], sep=",")
 					}
 			}else{
-			c <- cols
+			c <- columns
 			}
 		keys <- paste0('"',keys,'"')
 		ke <- paste(keytype, keys, sep="=")

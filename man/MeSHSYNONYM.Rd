@@ -6,7 +6,7 @@
 }
 \examples{
 	# You can retrive the MESHSYNONYM by MESHID
-	select(MeSHSYNONYM, keys=c("D000002", "D000005"), cols=c("MeSHID", "MESHSYNONYM"))
+	select(MeSHSYNONYM, keys=c("D000002", "D000005"), columns=c("MeSHID", "MESHSYNONYM"))
 
 }
 \keyword{datasets}

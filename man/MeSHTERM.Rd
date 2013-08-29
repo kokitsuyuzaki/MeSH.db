@@ -15,8 +15,8 @@
   \url{http://www.nlm.nih.gov/mesh/filelist.html} 
 }
 \examples{
-	# cols returns the columns which you can retrieve in MeSHTERM
-	cols(MeSHTERM)
+	# columns returns the columns which you can retrieve in MeSHTERM
+	columns(MeSHTERM)
 	# keytypes returns the columns which you can specify as keytype option in keys or select function
 	keytypes(MeSHTERM)
 	# keys returns the value of keytype
@@ -24,9 +24,9 @@
 	k2 <- keys(MeSHTERM, keytype="MESHTERM")
 	k3 <- keys(MeSHTERM, keytype="MESHCATEGORY")
 	# select returns the specific rows matching the conditional expression
-	result1 <- select(MeSHTERM, keys=k1, cols=c("MESHID","MESHTERM","MESHCATEGORY"), keytype="MESHID")
-	result2 <- select(MeSHTERM, keys=k2, cols=c("MESHID","MESHTERM","MESHCATEGORY"), keytype="MESHTERM")
-	result3 <- select(MeSHTERM, keys=k3, cols=c("MESHID","MESHTERM","MESHCATEGORY"), keytype="MESHCATEGORY")
+	result1 <- select(MeSHTERM, keys=k1, columns=c("MESHID","MESHTERM","MESHCATEGORY"), keytype="MESHID")
+	result2 <- select(MeSHTERM, keys=k2, columns=c("MESHID","MESHTERM","MESHCATEGORY"), keytype="MESHTERM")
+	result3 <- select(MeSHTERM, keys=k3, columns=c("MESHID","MESHTERM","MESHCATEGORY"), keytype="MESHCATEGORY")
 }
 \keyword{datasets}
 

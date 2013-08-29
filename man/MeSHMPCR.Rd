@@ -18,8 +18,8 @@
 \url{http://www.nlm.nih.gov/mesh/filelist.html} 
 }
 \examples{
-  # "cols" method tells you about what kinds of values you can retrive as columns
-  cols(MeSHMPCR)
+  # "columns" method tells you about what kinds of values you can retrive as columns
+  columns(MeSHMPCR)
   # "keytypes" method tells you the kinds of things that can be used as keys
   keytypes(MeSHMPCR)
   # "keys" method is used to retrive all the viable keys of a particular type
@@ -28,9 +28,9 @@
   k2 <- head(keys(MeSHMPCR, keytype="CHILDMESHID"))
   k2
   # "select" method extracts data by using values supplied by the other method
-  result1 <- select(MeSHMPCR, keys=k1, cols=c("PARENTMESHID", "CHILDMESHID"), keytype="PARENTMESHID")
+  result1 <- select(MeSHMPCR, keys=k1, columns=c("PARENTMESHID", "CHILDMESHID"), keytype="PARENTMESHID")
   head(result1)
-  result2 <- select(MeSHMPCR, keys=k2, cols=c("PARENTMESHID", "CHILDMESHID"), keytype="CHILDMESHID")
+  result2 <- select(MeSHMPCR, keys=k2, columns=c("PARENTMESHID", "CHILDMESHID"), keytype="CHILDMESHID")
   head(result2)
 }
 \keyword{datasets}

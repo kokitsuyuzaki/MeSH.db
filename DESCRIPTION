@@ -8,5 +8,5 @@ Depends: R (>= 2.7.0), methods, AnnotationDbi, AnnotationForge, DBI,
         RSQLite
 Imports: methods, AnnotationDbi, AnnotationForge, DBI, RSQLite
 License: Artistic-2.0
-biocViews: hoge
+biocViews: AnnotationData, FunctionalAnnotation
 Packaged: 2013-02-27 04:25:22 UTC; miyazakilab
