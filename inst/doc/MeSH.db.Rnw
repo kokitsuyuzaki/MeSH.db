@@ -46,8 +46,7 @@ $^3$Department of Animal Sciences, University of Wisconsin-Madison.\\
 %\clearpage
 \newpage
 \section{Introduction}
-This document provides the way to use \Rpackage{MeSH.db} package. MeSH (Medical Subject Headings) is the NLM controlled vocabulary used to manually index articles for MEDLINE/Pubmed \cite{Nelson2004}. 
-
+This document provides the way to use \Rpackage{MeSH.db} package. MeSH (Medical Subject Headings) is the NLM (U. S. National Library of Medicine) controlled vocabulary used to manually index articles for MEDLINE / Pubmed \cite{Nelson2004}. 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{figure}[ht]
 \centering
@@ -57,9 +56,22 @@ This document provides the way to use \Rpackage{MeSH.db} package. MeSH (Medical 
 \end{figure}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-The amount of vocabulary in MeSH is about twice as large as that of GO (Gene Ontology)\cite{Ashburner2000} and its category is also wider. Therefore MeSH is expected to be much detailed and exhaustive gene annotation tool. Some softwares or databases using MeSH are now proposed \cite{Nakazato2007,Nakazato2009,Saurin2010,Sartor2012}.\\
-\Rpackage{MeSH.db} is a free R package for handling MeSH in R. Its data are retrieved from NLM ftp site (\url{http://www.nlm.nih.gov/mesh/filelist.html}). MeSH in 2013 has 19 hierarchies and MeSH.db provides 16 of them, which are actually assigned to some MeSH Terms. Each category is expressed as single capital alphabet defined by NLM as abbreviations.
+The amount of vocabulary in MeSH is about twice as large as that of GO (Gene Ontology)\cite{Ashburner2000} and its category is also wider. Therefore MeSH is expected to be much detailed and exhaustive gene annotation tool. Some softwares or databases using MeSH are now proposed \cite{Nakazato2007,Nakazato2009,Saurin2010,Sartor2012}.
 
+\Rpackage{MeSH.db} is a free R package for handling MeSH in R. MeSH data is accessible by NLM FTP site (\url{http://www.nlm.nih.gov/mesh/filelist.html}). The data are downloadable as plain-text format (ASCII MeSH; d2013.bin and q2013.bin). These files were preprocessed by our programs (figure 2) and corresponding information was summalized as a table in sqlite file and packed into \Rpackage{MeSH.db} (see also section 4, explaining the meaning of all tables).
+
+MeSH has hierarchical structures like GO. \Rpackage{MeSH.db} provides its Ancestor-Offspring Relationships (AOR) and Parent-Child Relationships (PCR) as corresponding table (dataframe). Data of PCR and AOR are also used for calculating the conditional probability in enrichment analysis (\Rpackage{meshr} package).
+\clearpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{fig2.png}
+\caption{Data preprocess for MeSH.db}
+\label{fig2}
+\end{figure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\clearpage
+MeSH in 2013 has 19 hierarchies and MeSH.db provides 16 of them, which are actually assigned to some MeSH Terms. Each category is expressed as single capital alphabet defined by NLM as abbreviations.
 \begin{center}
   \begin{table}[htbp]
     \begin{tabular}{|c|l|}\hline
@@ -83,9 +95,6 @@ The amount of vocabulary in MeSH is about twice as large as that of GO (Gene Ont
 \end{tabular}
   \end{table}
 \end{center}
-
-\newpage
-MeSH has hierarchical structures like GO. \Rpackage{MeSH.db} provides its Ancestor-Offspring Relationships (AOR) and Parent-Child Relationships (PCR) as corresponding table (dataframe). Data of PCR and AOR are also used for calculating the conditional probability in enrichment analysis (\Rpackage{meshr} package).
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %\clearpage
 \newpage
@@ -115,9 +124,9 @@ Following 36 data are provided by \Rpackage{MeSH.db}.
   \begin{table}[htbp]
     \begin{tabular*}{150mm}{@{\extracolsep{\fill}}|p{40mm}|p{100mm}|}\hline
       MeSHMAPCOUNTS & The number of row of all data \\ \hline
-      MeSHTERM & MeSH Term\\ \hline
+      MeSHTERM & MeSH ID, MeSH Term, and MeSH Category\\ \hline
       MeSHSYNONYM & The synonym of MeSH Term \\ \hline
-      MeSHQUALIFIER & Substantial Information of MeSH Term \\ \hline \hline
+      MeSHQUALIFIER & Optional Information of MeSH Term (Subheadings) \\ \hline \hline
       MeSHAAOR & Ancestor-Offspring Relationships in A category \\ \hline
       MeSHBAOR & Ancestor-Offspring Relationships in B category \\ \hline
       MeSHCAOR & Ancestor-Offspring Relationships in C category \\ \hline
