@@ -32,7 +32,7 @@
 \noindent
 $^1$Department of Medical and Life Science, Tokyo University of Science.\\
 \noindent
-$^2$Bioinformatics Research Unit, Advanced Center for Computing and Communication, RIKEN.\\
+$^2$Bioinformatics Research Unit, RIKEN Advanced Center for Computing and Communication.\\
 \noindent
 $^3$Department of Animal Sciences, University of Wisconsin-Madison.\\
 \end{center}
