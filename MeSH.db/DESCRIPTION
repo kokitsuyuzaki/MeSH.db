@@ -1,0 +1,12 @@
+Package: MeSH.db
+Title: A set of annotation maps describing the entire MeSH
+Description: A set of annotation maps describing the entire MeSH assembled using data from  MeSH
+Version: 0.99.0
+Author: Itoshi Nikaido, Koki Tsuyuzaki, Gota Morota
+Maintainer: Koki Tsuyuzaki <k.t.the-answer@hotmail.co.jp>
+Depends: R (>= 2.7.0), methods, AnnotationDbi, AnnotationForge, DBI,
+        RSQLite
+Imports: methods, AnnotationDbi, AnnotationForge, DBI, RSQLite
+License: Artistic-2.0
+biocViews: AnnotationData, FunctionalAnnotation
+Packaged: 2013-02-27 04:25:22 UTC; miyazakilab

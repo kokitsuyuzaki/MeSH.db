@@ -1,0 +1,449 @@
+%\VignetteIndexEntry{MeSH.db}
+\documentclass[11pt]{article}
+\usepackage{Sweave}
+\usepackage{amsmath}
+\usepackage{hyperref}
+\usepackage{cite}
+\usepackage{Sweave}
+
+\usepackage[numbers]{natbib}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\SweaveOpts{keep.source=FALSE,eps=FALSE,pdf=TRUE,png=TRUE,include=FALSE,concordance=TRUE}
+\usepackage{url}
+\usepackage[utf8]{inputenc}
+
+\setlength{\textheight}{8.5in}
+\setlength{\textwidth}{6in}
+\setlength{\topmargin}{-0.25in}
+\setlength{\oddsidemargin}{0.25in}
+\setlength{\evensidemargin}{0.25in}
+\newcommand{\Rpackage}[1]{{\textit{#1}}}
+
+\usepackage{Sweave}
+\begin{document}
+\SweaveOpts{concordance=TRUE}
+\SweaveOpts{concordance=TRUE}
+
+\title{\bf How to use the MeSH.db Package}
+\author{Koki Tsuyuzaki$^1$, Itoshi Nikaido$^2$, and Gota Morota$^3$.}
+\maketitle
+\begin{center}
+\noindent
+$^1$Department of Medical and Life Science, Tokyo University of Science.\\
+\noindent
+$^2$Bioinformatics Research Unit, RIKEN Advanced Center for Computing and Communication.\\
+\noindent
+$^3$Department of Animal Sciences, University of Wisconsin-Madison.\\
+\end{center}
+
+\begin{center}
+{\tt k.t.the-answer@hotmail.co.jp}
+\end{center}
+\tableofcontents
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\clearpage
+\newpage
+\section{Introduction}
+This document provides the way to use \Rpackage{MeSH.db} package. MeSH (Medical Subject Headings) is the NLM (U. S. National Library of Medicine) controlled vocabulary used to manually index articles for MEDLINE/Pubmed \cite{Nelson2004}. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{fig1.png}
+\caption{MeSH Term}
+\label{fig1}
+\end{figure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+The amount of vocabularies in MeSH is about twice as large as that of GO (Gene Ontology)\cite{Ashburner2000} and its categories are also wider. Therefore MeSH is expected to be much detailed and exhaustive gene annotation tool. Some softwares or databases using MeSH are now proposed \cite{Nakazato2007,Nakazato2009,Saurin2010,Sartor2012}.
+
+\Rpackage{MeSH.db} is a free R package for handling MeSH in R. Original MeSH data is accessible by NLM FTP site (\url{http://www.nlm.nih.gov/mesh/filelist.html}). The data are downloadable as plain-text format (ASCII MeSH; d2013.bin and q2013.bin). These files were preprocessed by our programs (figure 2) and corresponding information was summalized as a table in sqlite file and packed into \Rpackage{MeSH.db} (see also section 4, explaining the meaning of all tables).
+
+MeSH has hierarchical structure like GO. \Rpackage{MeSH.db} provides its Ancestor-Offspring Relationships (AOR) and Parent-Child Relationships (PCR) as corresponding table.
+%Data of PCR and AOR are also used for calculating the conditional probability in enrichment analysis (\Rpackage{meshr} package).
+\clearpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{fig2.png}
+\caption{Data preprocess for MeSH.db}
+\label{fig2}
+\end{figure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\clearpage
+MeSH in 2013 proposed its 19 categories and MeSH.db provides 16 of them, which are actually assigned to some MeSH terms. Each category is expressed as single capital alphabet defined by NLM as abbreviation.
+\begin{center}
+  \begin{table}[htbp]
+    \begin{tabular}{|c|l|}\hline
+      Abbreviation & Category \\ \hline \hline
+      A & Anatomy \\ \hline
+      B & Organisms \\ \hline
+      C & Diseases \\ \hline
+      D & Chemicals and Drugs \\ \hline
+      E & Analytical, Diagnostic and Therapeutic Techniques and Equipment \\ \hline
+      F & Psychiatry and Psychology \\ \hline
+      G & Phenomena and Processes \\ \hline
+      H & Disciplines and Occupations \\ \hline
+      I & Anthropology, Education, Sociology and Social Phenomena \\ \hline
+      J & Technology and Food and Beverages \\ \hline
+      K & Humanities \\ \hline
+      L & Information Science \\ \hline
+      M & Persons \\ \hline
+      N & Health Care \\ \hline
+      V & Publication Type \\ \hline
+      Z & Geographical Locations \\ \hline
+\end{tabular}
+  \end{table}
+\end{center}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\clearpage
+\newpage
+\section{Getting started}
+To load the \Rpackage{MeSH.db} package, just type library(MeSH.db). 5 methods and 36 data are provided by \Rpackage{MeSH.db}.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\clearpage
+\section{Methods}
+Following 5 methods are provided by \Rpackage{MeSH.db}.
+\begin{center}
+  \begin{table}[htbp]
+    \begin{tabular*}{150mm}{@{\extracolsep{\fill}}|c|l|}\hline
+      MeSH & Function for retrieval of the summary of all object in MeSH.db \\ \hline
+      MeSH\_dbconn & Function for retrieval of the connection of .sqlite database\\ \hline
+      MeSH\_dbfile & Function for retrieval of the directory of .sqlite file \\ \hline
+      MeSH\_dbschema & Function for retrieval of the schema of .sqlite database \\ \hline
+      MeSH\_dbInfo & Function for retrieval of the information of .sqlite database \\ \hline
+\end{tabular*}
+  \end{table}
+\end{center}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\clearpage
+\section{Data}
+Following 36 data are provided by \Rpackage{MeSH.db}.
+\\
+\begin{center}
+  \begin{table}[htbp]
+    \begin{tabular*}{150mm}{@{\extracolsep{\fill}}|p{40mm}|p{100mm}|}\hline
+      MeSHMAPCOUNTS & Summary of all table \\ \hline
+      MeSHTERM & MeSH ID, MeSH Term, and MeSH Category\\ \hline
+      MeSHSYNONYM & The synonym of MeSH Term \\ \hline
+      MeSHQUALIFIER & Optional Information of MeSH Term (Subheadings) \\ \hline \hline
+      MeSHAAOR & Ancestor-Offspring Relationships in A category \\ \hline
+      MeSHBAOR & Ancestor-Offspring Relationships in B category \\ \hline
+      MeSHCAOR & Ancestor-Offspring Relationships in C category \\ \hline
+      MeSHDAOR & Ancestor-Offspring Relationships in D category \\ \hline
+      MeSHEAOR & Ancestor-Offspring Relationships in E category \\ \hline
+      MeSHFAOR & Ancestor-Offspring Relationships in F category \\ \hline
+      MeSHGAOR & Ancestor-Offspring Relationships in G category \\ \hline
+      MeSHHAOR & Ancestor-Offspring Relationships in H category \\ \hline
+      MeSHIAOR & Ancestor-Offspring Relationships in I category \\ \hline
+      MeSHJAOR & Ancestor-Offspring Relationships in J category \\ \hline
+      MeSHKAOR & Ancestor-Offspring Relationships in K category \\ \hline
+      MeSHLAOR & Ancestor-Offspring Relationships in L category \\ \hline
+      MeSHMAOR & Ancestor-Offspring Relationships in M category \\ \hline
+      MeSHNAOR & Ancestor-Offspring Relationships in N category \\ \hline
+      MeSHVAOR & Ancestor-Offspring Relationships in V category \\ \hline
+      MeSHZAOR & Ancestor-Offspring Relationships in Z category \\ \hline \hline
+      MeSHAPCR & Parent-Child Relationships in A category \\ \hline
+      MeSHBPCR & Parent-Child Relationships in B category \\ \hline
+      MeSHCPCR & Parent-Child Relationships in C category \\ \hline
+      MeSHDPCR & Parent-Child Relationships in D category \\ \hline
+      MeSHEPCR & Parent-Child Relationships in E category \\ \hline
+      MeSHFPCR & Parent-Child Relationships in F category \\ \hline
+      MeSHGPCR & Parent-Child Relationships in G category \\ \hline
+      MeSHHPCR & Parent-Child Relationships in H category \\ \hline
+      MeSHIPCR & Parent-Child Relationships in I category \\ \hline
+      MeSHJPCR & Parent-Child Relationships in J category \\ \hline
+      MeSHKPCR & Parent-Child Relationships in K category \\ \hline
+      MeSHLPCR & Parent-Child Relationships in L category \\ \hline
+      MeSHMPCR & Parent-Child Relationships in M category \\ \hline
+      MeSHNPCR & Parent-Child Relationships in N category \\ \hline
+      MeSHVPCR & Parent-Child Relationships in V category \\ \hline
+      MeSHZPCR & Parent-Child Relationships in Z category \\ \hline
+    \end{tabular*}
+  \end{table}
+\end{center}
+
+\newpage
+In \Rpackage{MeSH.db}, all data are extracted by 4 functions defined by \Rpackage{AnnotationForge}; $\bf{keytypes}$, $\bf{columns}$, $\bf{keys}$ and $\bf{select}$. $\bf{keys}$ function has 1 parameter (keytype) and $\bf{select}$ function also has 3 parameters (keys, columns and keytype). $\bf{columns}$ is the columns which you can retrieved by $\bf{select}$ and $\bf{keytypes}$ is the columns which you can specify as the parameter in $\bf{keys}$ and $\bf{select}$ functions.
+\begin{center}
+  \begin{table}[htbp]
+    \begin{tabular*}{160mm}{@{\extracolsep{\fill}}|p{35mm}|p{55mm}|p{55mm}|} \hline
+      Object Name & columns & keytype \\ \hline \hline
+      MeSHMAPCOUNTS & MAPNAME, COUNT & MAPNAME \\ \hline
+      MeSHTERM & \shortstack{MESHID, MESHTERM,\\ CATEGORY} & \shortstack{MESHID, MESHTERM,\\ CATEGORY} \\ \hline
+      MeSHSYNONYM & MESHID, MESHSYNONYM & MESHID \\ \hline
+      MeSHQUALIFIER & \shortstack{QUALIFIERID, SUBHEADING,\\ MESHID} & QUALIFIERID, MESHID \\ \hline \hline
+      MeSHAAOR & \shortstack{ANCESTERMESHID,\\ OFFSPRINGMESHID} & \shortstack{ANCESTERMESHID,\\ OFFSPRINGMESHID} \\ \hline
+     MeSHBAOR & \shortstack{ANCESTERMESHID,\\ OFFSPRINGMESHID} & \shortstack{ANCESTERMESHID,\\ OFFSPRINGMESHID} \\ \hline
+     MeSHCAOR & \shortstack{ANCESTERMESHID,\\ OFFSPRINGMESHID} & \shortstack{ANCESTERMESHID,\\ OFFSPRINGMESHID} \\ \hline
+     MeSHDAOR & \shortstack{ANCESTERMESHID,\\ OFFSPRINGMESHID} & \shortstack{ANCESTERMESHID,\\ OFFSPRINGMESHID} \\ \hline
+     MeSHEAOR & \shortstack{ANCESTERMESHID,\\ OFFSPRINGMESHID} & \shortstack{ANCESTERMESHID,\\ OFFSPRINGMESHID} \\ \hline
+     MeSHFAOR & \shortstack{ANCESTERMESHID,\\ OFFSPRINGMESHID} & \shortstack{ANCESTERMESHID,\\ OFFSPRINGMESHID} \\ \hline
+     MeSHGAOR & \shortstack{ANCESTERMESHID,\\ OFFSPRINGMESHID} & \shortstack{ANCESTERMESHID,\\ OFFSPRINGMESHID} \\ \hline
+     MeSHHAOR & \shortstack{ANCESTERMESHID,\\ OFFSPRINGMESHID} & \shortstack{ANCESTERMESHID,\\ OFFSPRINGMESHID} \\ \hline
+     MeSHIAOR & \shortstack{ANCESTERMESHID,\\ OFFSPRINGMESHID} & \shortstack{ANCESTERMESHID,\\ OFFSPRINGMESHID} \\ \hline
+     MeSHJAOR & \shortstack{ANCESTERMESHID,\\ OFFSPRINGMESHID} & \shortstack{ANCESTERMESHID,\\ OFFSPRINGMESHID} \\ \hline
+     MeSHKAOR & \shortstack{ANCESTERMESHID,\\ OFFSPRINGMESHID} & \shortstack{ANCESTERMESHID,\\ OFFSPRINGMESHID} \\ \hline
+     MeSHLAOR & \shortstack{ANCESTERMESHID,\\ OFFSPRINGMESHID} & \shortstack{ANCESTERMESHID,\\ OFFSPRINGMESHID} \\ \hline
+   \end{tabular*}
+  \end{table}
+\end{center}
+
+\begin{center}
+  \begin{table}[htbp]
+    \begin{tabular*}{160mm}{@{\extracolsep{\fill}}|p{35mm}|p{55mm}|p{55mm}|} \hline
+     MeSHMAOR & \shortstack{ANCESTERMESHID,\\ OFFSPRINGMESHID} & \shortstack{ANCESTERMESHID,\\ OFFSPRINGMESHID} \\ \hline
+     MeSHNAOR & \shortstack{ANCESTERMESHID,\\ OFFSPRINGMESHID} & \shortstack{ANCESTERMESHID,\\ OFFSPRINGMESHID} \\ \hline
+     MeSHVAOR & \shortstack{ANCESTERMESHID,\\ OFFSPRINGMESHID} & \shortstack{ANCESTERMESHID,\\ OFFSPRINGMESHID} \\ \hline
+     MeSHZAOR & \shortstack{ANCESTERMESHID,\\ OFFSPRINGMESHID} & \shortstack{ANCESTERMESHID,\\ OFFSPRINGMESHID} \\ \hline \hline
+    MeSHAPCR & \shortstack{PARENTMESHID,\\ CHILDMESHID} & \shortstack{PARENTMESHID,\\ CHILDMESHID} \\ \hline
+    MeSHBPCR & \shortstack{PARENTMESHID,\\ CHILDMESHID} & \shortstack{PARENTMESHID,\\ CHILDMESHID} \\ \hline
+    MeSHCPCR & \shortstack{PARENTMESHID,\\ CHILDMESHID} & \shortstack{PARENTMESHID,\\ CHILDMESHID} \\ \hline
+    MeSHDPCR & \shortstack{PARENTMESHID,\\ CHILDMESHID} & \shortstack{PARENTMESHID,\\ CHILDMESHID} \\ \hline
+    MeSHEPCR & \shortstack{PARENTMESHID,\\ CHILDMESHID} & \shortstack{PARENTMESHID,\\ CHILDMESHID} \\ \hline
+    MeSHFPCR & \shortstack{PARENTMESHID,\\ CHILDMESHID} & \shortstack{PARENTMESHID,\\ CHILDMESHID} \\ \hline
+    MeSHGPCR & \shortstack{PARENTMESHID,\\ CHILDMESHID} & \shortstack{PARENTMESHID,\\ CHILDMESHID} \\ \hline
+    MeSHHPCR & \shortstack{PARENTMESHID,\\ CHILDMESHID} & \shortstack{PARENTMESHID,\\ CHILDMESHID} \\ \hline
+    MeSHIPCR & \shortstack{PARENTMESHID,\\ CHILDMESHID} & \shortstack{PARENTMESHID,\\ CHILDMESHID} \\ \hline
+    MeSHJPCR & \shortstack{PARENTMESHID,\\ CHILDMESHID} & \shortstack{PARENTMESHID,\\ CHILDMESHID} \\ \hline
+    MeSHKPCR & \shortstack{PARENTMESHID,\\ CHILDMESHID} & \shortstack{PARENTMESHID,\\ CHILDMESHID} \\ \hline
+    MeSHLPCR & \shortstack{PARENTMESHID,\\ CHILDMESHID} & \shortstack{PARENTMESHID,\\ CHILDMESHID} \\ \hline
+    MeSHMPCR & \shortstack{PARENTMESHID,\\ CHILDMESHID} & \shortstack{PARENTMESHID,\\ CHILDMESHID} \\ \hline
+    MeSHNPCR & \shortstack{PARENTMESHID,\\ CHILDMESHID} & \shortstack{PARENTMESHID,\\ CHILDMESHID} \\ \hline
+    MeSHVPCR & \shortstack{PARENTMESHID,\\ CHILDMESHID} & \shortstack{PARENTMESHID,\\ CHILDMESHID} \\ \hline
+    MeSHZPCR & \shortstack{PARENTMESHID,\\ CHILDMESHID} & \shortstack{PARENTMESHID,\\ CHILDMESHID} \\ \hline     
+   \end{tabular*}
+  \end{table}
+\end{center}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\clearpage
+\newpage
+\section{Examples}
+\subsection{Exercises in columns, keytypes, keys and select}
+\Rpackage{MeSH.db} uses $\bf{columns}$, $\bf{keytypes}$, $\bf{keys}$ and $\bf{select}$ functions defined by \Rpackage{AnnotationForge}. In this section we will show you how to use these functions in \Rpackage{MeSH.db}.\\
+
+At first, install and load the \Rpackage{MeSH.db}.
+\begin{center}
+<<echo=TRUE,print=FALSE>>=
+library(MeSH.db)
+@
+\end{center}
+
+
+ls shows all object in this package.
+\begin{center}
+<<echo=TRUE,print=FALSE>>=
+ls("package:MeSH.db")
+@
+\end{center}
+
+Here we will use $\bf{columns}$, $\bf{keytypes}$, $\bf{keys}$ and $\bf{select}$ against MeSHMAPCOUNTS.\\
+
+$\bf{columns}$ returns the rows which we can retrieve in MeSHMAPCOUNTS.
+\begin{center}
+<<echo=TRUE,print=FALSE>>=
+columns(MeSHMAPCOUNTS)
+@
+\end{center}
+
+
+$\bf{keytypes}$ returns the rows which we can use as the optional parameter in $\bf{keys}$ and $\bf{select}$ functions against MeSHMAPCOUNTS.
+\begin{center}
+<<echo=TRUE,print=FALSE>>=
+keytypes(MeSHMAPCOUNTS)
+@
+\end{center}
+MAPNAME is accessible.
+
+\newpage
+$\bf{keys}$ function specifies the value of keytype.
+\begin{center}
+<<echo=TRUE,print=FALSE>>=
+k <- keys(MeSHMAPCOUNTS, keytype="MAPNAME")
+head(k)
+@
+\end{center}
+
+
+$\bf{select}$ function specifies the rows in particular columns, which are having user-defined keys. This function retrieves data as single dataframe like SQL's SELECT statement. Now we will retrieve the rows in which MAPNAME is equivalent to "MeSHTERM".
+\begin{center}
+<<echo=TRUE,print=FALSE>>=
+select(MeSHMAPCOUNTS, keys=k[1,], columns=c("MAPNAME","COUNT"),
+       keytype="MAPNAME")
+@
+\end{center}
+
+
+By the way, in this situation, keytype-parameter does not have to be specified against MeSHMAPCOUNTS. Because MeSHMAPCOUNTS has only single column which is possible to be keytype and keytype is consequently specified.
+\begin{center}
+<<echo=TRUE,print=FALSE>>=
+select(MeSHMAPCOUNTS, keys=k[1,], columns=c("MAPNAME","COUNT"))
+@
+\end{center}
+The same can be said of MeSHSYNONYM.
+
+%\clearpage
+\newpage
+\subsection{Annotation of $Leukemia$}
+
+
+Next we will annotate $Leukemia$ by MeSH.
+\begin{center}
+<<echo=TRUE,print=FALSE>>=
+columns(MeSHTERM)
+@
+\end{center}
+
+
+MESHID, MESHTERM and MESHCATEGORY can be retrieved from MeSHTERM.
+\begin{center}
+<<echo=TRUE,print=FALSE>>=
+keytypes(MeSHTERM)
+@
+\end{center}
+All of them are available as keytype-parameters in $\bf{select}$ function.\\
+
+
+$\bf{select}$ function retrieves the rows in which MESHTERM is "$Leukemia$" in MeSHTERM table.
+\begin{center}
+<<echo=TRUE,print=FALSE>>=
+LEU <- select(MeSHTERM, keys="Leukemia",
+            columns=c("MESHID", "MESHTERM", "MESHCATEGORY"), keytype="MESHTERM")
+LEU
+@
+\end{center}
+
+
+$\bf{select}$ function shows that MESHID of $Leukemia$ is D007938 and $Leukemia$ is in C (Diseases) category.\\
+
+
+Using MeSHSYNONYM, we can also check whether $Leukemia$ has some synonyms.
+\begin{center}
+<<echo=TRUE,print=FALSE,eval=FALSE>>=
+select(MeSHSYNONYM, keys=LEU[1,1],
+       columns=c("MESHID","MESHSYNONYM"), keytype="MESHTERM")
+@
+\end{center}
+\begin{center}
+<<echo=FALSE,print=FALSE>>=
+writeLines(strwrap(capture.output(select(MeSHSYNONYM, keys=LEU[1,1], columns=c("MESHID","MESHSYNONYM")))))
+@
+\end{center}
+$Leukemia$ has some synonyms like $Leucocythaemia$, $Leucocythaemias$, $Leucocythemias$ and $Leukemias$.\\\\
+
+
+NLM also defines Qualifier terms, which means more rough annotation (subheadings) than MeSH. We can also use $\bf{select}$ function against MeSHQUALIFIER.
+\begin{center}
+<<echo=TRUE,print=FALSE>>=
+select(MeSHQUALIFIER, keys=LEU[1,1], 
+       columns=c("QUALIFIERID","SUBHEADING","MESHID"), keytype="MESHID")
+@
+\end{center}
+
+As mentioned in section 1, MeSH has hierarchical structures. AOR provides us upper (or lower) hierarchical MeSH Term. We already know $Leukemia$ is categorized in C (Diseases), so MeSH$\bf{C}$AOR is available.
+\begin{center}
+<<echo=TRUE,print=FALSE>>=
+ANC <- select(MeSHCAOR, keys=LEU[1,1], 
+       columns=c("ANCESTORMESHID","OFFSPRINGMESHID"), keytype="OFFSPRINGMESHID")
+ANC
+@
+\end{center}
+D009370 has found above $Leukemia$.\\
+
+These MeSH ID can be translated to MeSH Term.
+\begin{center}
+<<echo=TRUE,print=FALSE>>=
+select(MeSHTERM, keys=ANC[,1], columns=c("MESHTERM"), keytype="MESHID")
+@
+\end{center}
+
+Once keytype-parameter set to opposite direction (OFFSPRINGMESHID to ANCESTORMESHID), other MeSH IDs in lower hierarchies also can be retrieved.
+\begin{center}
+<<echo=TRUE,print=FALSE>>=
+OFF <- select(MeSHCAOR, keys=LEU[1,1], 
+       columns=c("ANCESTORMESHID","OFFSPRINGMESHID"), keytype="ANCESTORMESHID")
+OFF
+@
+\end{center}
+There are a lot of MeSH ID, which means $Leukemia$ has many lower hierarchies.\\
+
+PCR provides directly lower (or upper) hierarchies.
+\begin{center}
+<<echo=TRUE,print=FALSE>>=
+CHI <- select(MeSHCPCR, keys=LEU[1,1], 
+       columns=c("PARENTMESHID","CHILDMESHID"), keytype="PARENTMESHID")
+CHI
+@
+\end{center}
+
+These MeSH IDs can be translated to MeSH Terms.
+\begin{center}
+<<echo=TRUE,print=FALSE>>=
+select(MeSHTERM, keys=CHI[,2], columns=c("MESHTERM"), keytype="MESHID")
+@
+\end{center}
+
+$Leukemia$ has a lot of subtypes like $Leukemia, Myeloid$, $Leukemia, Plasma Cell$ and so on.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\clearpage
+
+\section{Setup}
+
+This vignette was built on:
+<<session>>=
+sessionInfo()
+@ 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+
+\vspace{2cm}
+
+\begin{thebibliography}{9}
+% \providecommand{\natexlab}[1]{#1}
+% \providecommand{\url}[1]{\texttt{#1}}
+% \expandafter\ifx\csname urlstyle\endcsname\relax
+%   \providecommand{\doi}[1]{doi: #1}\else
+%   \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+% MeSH
+\bibitem{Nelson2004}
+S. J. Nelson and et al.
+\newblock {The MeSH translation maintenance system: structure, interface design, and implementation.}
+\newblock \emph{Stud. Health Technol. Inform.}, 107: 67-69, 2004.
+
+% Gene Ontology
+\bibitem{Ashburner2000}
+M. Ashburner and et al.
+\newblock {Gene ontology: tool for the unification of biology. The Gene Ontology Consortium.}
+\newblock \emph{Nat. Genet.}, 25(1): 25-29, 2000.
+
+% BioCompass
+\bibitem{Nakazato2007}
+T. Nakazato and et al.
+\newblock {BioCompass: a novel functional inference tool that utilizes MeSH hierarchy to analyze groups of genes.}
+\newblock \emph {In Silico Biol.}, 8(1): 53-61, 2007.
+
+% Gendoo
+\bibitem{Nakazato2009}
+T. Nakazato and et al.
+\newblock {Nucleic Acids Res.}
+\newblock \emph {Gendoo: functional profiling of gene and disease features using MeSH vocabulary.}, 37: W166-W169, 2009.
+
+% GeneMeSH
+\bibitem{Saurin2010}
+D. J. Saurin and et al.
+\newblock {GeneMeSH: a web-based microarray analysis tool for relating differentially expressed genes to MeSH terms.}
+\newblock \emph {BMC Bioinformatics}, 11: 166, 2010.
+
+% Metab2MeSH
+\bibitem{Sartor2012}
+M. A. Sartor and et al.
+\newblock {Metab2MeSH: annotating compounds with medical subject headings.}
+\newblock \emph {Bioinformatics}, 28(10): 1408-1410, 2012.
+
+\end{thebibliography}
+
+\end{document}
