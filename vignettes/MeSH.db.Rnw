@@ -46,7 +46,7 @@ $^3$Department of Animal Sciences, University of Wisconsin-Madison.\\
 %\clearpage
 \newpage
 \section{Introduction}
-This document provides the way to use \Rpackage{MeSH.db} package. MeSH (Medical Subject Headings) is the NLM (U. S. National Library of Medicine) controlled vocabulary used to manually index articles for MEDLINE / Pubmed \cite{Nelson2004}. 
+This document provides the way to use \Rpackage{MeSH.db} package. MeSH (Medical Subject Headings) is the NLM (U. S. National Library of Medicine) controlled vocabulary used to manually index articles for MEDLINE/Pubmed \cite{Nelson2004}. 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{figure}[ht]
 \centering
@@ -56,11 +56,12 @@ This document provides the way to use \Rpackage{MeSH.db} package. MeSH (Medical 
 \end{figure}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-The amount of vocabulary in MeSH is about twice as large as that of GO (Gene Ontology)\cite{Ashburner2000} and its category is also wider. Therefore MeSH is expected to be much detailed and exhaustive gene annotation tool. Some softwares or databases using MeSH are now proposed \cite{Nakazato2007,Nakazato2009,Saurin2010,Sartor2012}.
+The amount of vocabularies in MeSH is about twice as large as that of GO (Gene Ontology)\cite{Ashburner2000} and its categories are also wider. Therefore MeSH is expected to be much detailed and exhaustive gene annotation tool. Some softwares or databases using MeSH are now proposed \cite{Nakazato2007,Nakazato2009,Saurin2010,Sartor2012}.
 
-\Rpackage{MeSH.db} is a free R package for handling MeSH in R. MeSH data is accessible by NLM FTP site (\url{http://www.nlm.nih.gov/mesh/filelist.html}). The data are downloadable as plain-text format (ASCII MeSH; d2013.bin and q2013.bin). These files were preprocessed by our programs (figure 2) and corresponding information was summalized as a table in sqlite file and packed into \Rpackage{MeSH.db} (see also section 4, explaining the meaning of all tables).
+\Rpackage{MeSH.db} is a free R package for handling MeSH in R. Original MeSH data is accessible by NLM FTP site (\url{http://www.nlm.nih.gov/mesh/filelist.html}). The data are downloadable as plain-text format (ASCII MeSH; d2013.bin and q2013.bin). These files were preprocessed by our programs (figure 2) and corresponding information was summalized as a table in sqlite file and packed into \Rpackage{MeSH.db} (see also section 4, explaining the meaning of all tables).
 
-MeSH has hierarchical structures like GO. \Rpackage{MeSH.db} provides its Ancestor-Offspring Relationships (AOR) and Parent-Child Relationships (PCR) as corresponding table (dataframe). Data of PCR and AOR are also used for calculating the conditional probability in enrichment analysis (\Rpackage{meshr} package).
+MeSH has hierarchical structures like GO. \Rpackage{MeSH.db} provides its Ancestor-Offspring Relationships (AOR) and Parent-Child Relationships (PCR) as corresponding table.
+%Data of PCR and AOR are also used for calculating the conditional probability in enrichment analysis (\Rpackage{meshr} package).
 \clearpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{figure}[ht]
@@ -71,7 +72,7 @@ MeSH has hierarchical structures like GO. \Rpackage{MeSH.db} provides its Ancest
 \end{figure}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \clearpage
-MeSH in 2013 has 19 hierarchies and MeSH.db provides 16 of them, which are actually assigned to some MeSH Terms. Each category is expressed as single capital alphabet defined by NLM as abbreviations.
+MeSH in 2013 proposed its 19 categories and MeSH.db provides 16 of them, which are actually assigned to some MeSH Terms. Each category is expressed as single capital alphabet defined by NLM as abbreviation.
 \begin{center}
   \begin{table}[htbp]
     \begin{tabular}{|c|l|}\hline
@@ -164,7 +165,7 @@ Following 36 data are provided by \Rpackage{MeSH.db}.
 \end{center}
 
 \newpage
-In \Rpackage{MeSH.db}, all data are extracted by 4 functions defined by \Rpackage{AnnotationForge}; $\bf{keytypes}$, $\bf{columns}$, $\bf{keys}$ and $\bf{select}$. keys function has 1 parameter (keytype) and select function also has 3 parameters (keys, columns and keytype). columns is the columns which you can retrieved by select and keytype is the columns which you can specify as the parameter in keys and select functions.
+In \Rpackage{MeSH.db}, all data are extracted by 4 functions defined by \Rpackage{AnnotationForge}; $\bf{keytypes}$, $\bf{columns}$, $\bf{keys}$ and $\bf{select}$. $\bf{keys}$ function has 1 parameter (keytype) and $\bf{select}$ function also has 3 parameters (keys, columns and keytype). $\bf{columns}$ is the columns which you can retrieved by select and $\bf{keytypes}$ is the columns which you can specify as the parameter in $\bf{keys}$ and $\bf{select}$ functions.
 \begin{center}
   \begin{table}[htbp]
     \begin{tabular*}{160mm}{@{\extracolsep{\fill}}|p{35mm}|p{55mm}|p{55mm}|} \hline
@@ -220,7 +221,7 @@ In \Rpackage{MeSH.db}, all data are extracted by 4 functions defined by \Rpackag
 \newpage
 \section{Examples}
 \subsection{Exercises in columns, keytypes, keys and select}
-\Rpackage{MeSH.db uses} columns, keytypes, keys and select functions defined by \Rpackage{AnnotationForge}. In this section we will show you how to use these functions in \Rpackage{MeSH.db}.\\
+\Rpackage{MeSH.db} uses $\bf{columns}$, $\bf{keytypes}$, $\bf{keys}$ and $\bf{select}$ functions defined by \Rpackage{AnnotationForge}. In this section we will show you how to use these functions in \Rpackage{MeSH.db}.\\
 
 At first, install and load the \Rpackage{MeSH.db}.
 \begin{center}
@@ -237,9 +238,9 @@ ls("package:MeSH.db")
 @
 \end{center}
 
-Here we use columns, keytypes, keys and select against MeSHMAPCOUNTS.\\
+Here we will use $\bf{columns}$, $\bf{keytypes}$, $\bf{keys}$ and $\bf{select}$ against MeSHMAPCOUNTS.\\
 
-columns returns the rows which you can retrieve in MeSHMAPCOUNTS.
+$\bf{columns}$ returns the rows which we can retrieve in MeSHMAPCOUNTS.
 \begin{center}
 <<echo=TRUE,print=FALSE>>=
 columns(MeSHMAPCOUNTS)
@@ -247,16 +248,16 @@ columns(MeSHMAPCOUNTS)
 \end{center}
 
 
-keytypes returns the rows which you can use as the optional parameter in keys and select functions against MeSHMAPCOUNTS.
+$\bf{keytypes}$ returns the rows which we can use as the optional parameter in $\bf{keys}$ and $\bf{select}$ functions against MeSHMAPCOUNTS.
 \begin{center}
 <<echo=TRUE,print=FALSE>>=
 keytypes(MeSHMAPCOUNTS)
 @
 \end{center}
-Here we will know that MAPNAME is available.
+Here MAPNAME is accessible.
 
 \newpage
-keys function specifies the value of keytype.
+$\bf{keys}$ function specifies the value of keytype.
 \begin{center}
 <<echo=TRUE,print=FALSE>>=
 k <- keys(MeSHMAPCOUNTS, keytype="MAPNAME")
@@ -265,7 +266,7 @@ head(k)
 \end{center}
 
 
-select method specifies the rows in particular columns having user-defined keys and retrieved data as single dataframe like SQL's SELECT statement. Now we retrieve the rows in which MAPNAME is equivalent to "MeSHTERM".
+$\bf{select}$ method specifies the rows in particular columns having user-defined keys and retrieved data as single dataframe like SQL's SELECT statement. Now we will retrieve the rows in which MAPNAME is equivalent to "MeSHTERM".
 \begin{center}
 <<echo=TRUE,print=FALSE>>=
 select(MeSHMAPCOUNTS, keys=k[1,], columns=c("MAPNAME","COUNT"),
@@ -274,7 +275,7 @@ select(MeSHMAPCOUNTS, keys=k[1,], columns=c("MAPNAME","COUNT"),
 \end{center}
 
 
-By the way, here we don't have to specify keytype as parameter against MeSHMAPCOUNTS, because MeSHMAPCOUNTS only has single column which is possible to be keytype and keytype is consequently specified.
+By the way, here keytype-parameter does not have to be specified against MeSHMAPCOUNTS, because MeSHMAPCOUNTS only has single column which is possible to be keytype and keytype is consequently specified.
 \begin{center}
 <<echo=TRUE,print=FALSE>>=
 select(MeSHMAPCOUNTS, keys=k[1,], columns=c("MAPNAME","COUNT"))
@@ -301,10 +302,10 @@ MESHID, MESHTERM and MESHCATEGORY can be retrieved from MeSHTERM.
 keytypes(MeSHTERM)
 @
 \end{center}
-All of them are available as a keytype's parameter.\\
+All of them are available as keytype-parameters in $\bf{select}$ function.\\
 
 
-select function retrieves the rows in which MESHTERM is "$Leukemia$" in MeSHTERM table.
+$\bf{select}$ function retrieves the rows in which MESHTERM is "$Leukemia$" in MeSHTERM table.
 \begin{center}
 <<echo=TRUE,print=FALSE>>=
 LEU <- select(MeSHTERM, keys="Leukemia",
@@ -314,7 +315,7 @@ LEU
 \end{center}
 
 
-select function shows that MESHID of $Leukemia$ is D007938 and $Leukemia$ is in C (Diseases) category.\\
+$\bf{select}$ function shows that MESHID of $Leukemia$ is D007938 and $Leukemia$ is in C (Diseases) category.\\
 
 
 Using MeSHSYNONYM, we can also check whether $Leukemia$ has some synonyms.
@@ -329,10 +330,10 @@ select(MeSHSYNONYM, keys=LEU[1,1],
 writeLines(strwrap(capture.output(select(MeSHSYNONYM, keys=LEU[1,1], columns=c("MESHID","MESHSYNONYM")))))
 @
 \end{center}
-We will know that $Leukemia$ has some synonyms like $Leucocythaemia$, $Leucocythaemias$, $Leucocythemias$ and $Leukemias$.\\\\
+$Leukemia$ has some synonyms like $Leucocythaemia$, $Leucocythaemias$, $Leucocythemias$ and $Leukemias$.\\\\
 
 
-MeSH also defines QUALIFIER, which is more rough category (SUBHEADING). We can also use select function against MeSHQUALIFIER.
+NLM also defines Qualifier terms, which means more rough annotation (subheadings) than MeSH. We can also use $\bf{select}$ function against MeSHQUALIFIER.
 \begin{center}
 <<echo=TRUE,print=FALSE>>=
 select(MeSHQUALIFIER, keys=LEU[1,1], 
@@ -340,7 +341,7 @@ select(MeSHQUALIFIER, keys=LEU[1,1],
 @
 \end{center}
 
-As mentioned before, MeSH has hierarchical structures. AOR provides us upper (or lower) hierarchical MeSH Term. We already know $Leukemia$ is categorized in C (Diseases), so MeSH$\bf{C}$AOR is available.
+As mentioned in section 1, MeSH has hierarchical structures. AOR provides us upper (or lower) hierarchical MeSH Term. We already know $Leukemia$ is categorized in C (Diseases), so MeSH$\bf{C}$AOR is available.
 \begin{center}
 <<echo=TRUE,print=FALSE>>=
 ANC <- select(MeSHCAOR, keys=LEU[1,1], 
@@ -348,16 +349,16 @@ ANC <- select(MeSHCAOR, keys=LEU[1,1],
 ANC
 @
 \end{center}
-There are D009370 above $Leukemia$.\\
+D009370 has found above $Leukemia$.\\
 
-We can translate these MeSH ID to MeSH Term.
+These MeSH ID can be translated to MeSH Term.
 \begin{center}
 <<echo=TRUE,print=FALSE>>=
 select(MeSHTERM, keys=ANC[,1], columns=c("MESHTERM"), keytype="MESHID")
 @
 \end{center}
 
-Once we set keytype to opposite direction (OFFSPRINGMESHID to ANCESTORMESHID), we can also retrieved MeSH ID of lower hierarchies.
+Once keytype set to opposite direction (OFFSPRINGMESHID to ANCESTORMESHID), other MeSH IDs in lower hierarchies also can be retrieved.
 \begin{center}
 <<echo=TRUE,print=FALSE>>=
 OFF <- select(MeSHCAOR, keys=LEU[1,1], 
@@ -365,9 +366,9 @@ OFF <- select(MeSHCAOR, keys=LEU[1,1],
 OFF
 @
 \end{center}
-There are a lot of MeSH ID, and it means $Leukemia$ has many lower hierarchies.\\
+There are a lot of MeSH ID, which means $Leukemia$ has many lower hierarchies.\\
 
-PCR provides directly lower (or upper) hierarchy.
+PCR provides directly lower (or upper) hierarchies.
 \begin{center}
 <<echo=TRUE,print=FALSE>>=
 CHI <- select(MeSHCPCR, keys=LEU[1,1], 
@@ -376,17 +377,17 @@ CHI
 @
 \end{center}
 
-We can also translate these MeSH ID to MeSH Term.
+These MeSH IDs can be translated to MeSH Terms.
 \begin{center}
 <<echo=TRUE,print=FALSE>>=
 select(MeSHTERM, keys=CHI[,2], columns=c("MESHTERM"), keytype="MESHID")
 @
 \end{center}
 
-We will know $Leukemia$ has a lot of subtypes like $Leukemia, Myeloid$, $Leukemia, Plasma Cell$ and so on.
+$Leukemia$ has a lot of subtypes like $Leukemia, Myeloid$, $Leukemia, Plasma Cell$ and so on.
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\clearpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\clearpage
 
 \section{Setup}
 
